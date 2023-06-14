@@ -1,4 +1,4 @@
-import App from '../predtimechart.js';
+import App from '../src/predtimechart.js';
 
 const {test} = QUnit;
 
