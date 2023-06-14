@@ -11,6 +11,7 @@ Goals:
 Files:
 
 - **predtimechart.js**: the component. exports `App` with its `App.initialize()` entry point. imports `_validateOptions()` from `validation.js`. meant to be used by a client _html_ file
+- **predtimechart.css**: accompanying style sheet. meant to be used by a client _html_ file
 - **hello.js**: simple app that imports `App` from `predtimechart.js`. gives us something to run in this project
 - **validation.js**: exports `_validateOptions()`, which uses Ajv to validate its input
 - **test/validation.js**: defines some [Qunit](https://qunitjs.com/) tests against `validation.js`
