@@ -33,11 +33,6 @@ const validate = ajv.compile(schema);
  * @private
  */
 function _validateOptions(options) {
-    // options object: must be present
-    if ((options === null) || (typeof options !== "object")) {
-        throw `options object is required but missing: '${options}'`;
-    }
-
     // validate against schema
     const valid = validate(options);
     if (!valid) {  // validate.errors

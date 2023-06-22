@@ -1,3 +1,4 @@
+import _validateOptions from '../src/validation.js';
 import App from '../src/predtimechart.js';
 
 const {test} = QUnit;
@@ -9,15 +10,6 @@ const {test} = QUnit;
 
 QUnit.module('_validateOptions()');
 
-test('options object missing', assert => {
-    assert.throws(
-        function () {
-            App.initialize();
-        },
-        /options object is required but missing/,
-    );
-});
-
 test('options object invalid', assert => {
     const data = {foo: 1, bar: "abc"};
 
@@ -25,7 +17,7 @@ test('options object invalid', assert => {
     data.baz = null;
     assert.throws(
         () => {
-            App.initialize(data);
+            _validateOptions(data);
         },
         /invalid options/,
     );
@@ -35,13 +27,20 @@ test('options object invalid', assert => {
     data.foo = "not an int!";
     assert.throws(
         () => {
-            App.initialize(data);
+            _validateOptions(data);
         },
         /invalid options/,
     );
 });
 
-test('options object valid', assert => {
+
+//
+// App tests
+//
+
+QUnit.module('App');
+
+test('options object valid via App', assert => {
     const options = {foo: 1, bar: "abc"};  // valid options
     const actualResult = App.initialize(options);
     assert.equal(actualResult, true);
