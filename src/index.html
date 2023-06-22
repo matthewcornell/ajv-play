@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sample html file</title>
-    <link rel="stylesheet" href="predtimechart.css">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <!-- <link rel="stylesheet" href="predtimechart.css"> -->
 </head>
 
 <body>
 <script type="module">
-    import App from './predtimechart.js';
+    import App from './predtimechart.bundle.js';
 
     App.initialize({foo: 1, bar: "abc"})  // valid options
 </script>

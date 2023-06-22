@@ -7,6 +7,11 @@ const App = {
         _validateOptions(options);
 
         // would do other stuff here...
+        if (typeof document !== 'undefined') {
+            const divElement = document.createElement('div');
+            divElement.innerHTML = 'hello from initialize()!';
+            document.body.appendChild(divElement);
+        }
 
         console.debug('initialize(): done')
         return true;  // arbitrary return value
