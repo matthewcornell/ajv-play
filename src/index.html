@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <!-- <link rel="stylesheet" href="predtimechart.css"> -->
 </head>
 
 <body>
 <script type="module">
-    import App from './predtimechart.bundle.js';
-
+    import App from './predtimechart.bundle.js';  // hard-coded from webpack.config.cjs `output.filename`
     App.initialize({foo: 1, bar: "abc"})  // valid options
 </script>
 </body>

@@ -2,19 +2,24 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: {
-        predtimechart: './src/predtimechart.js',
-        // validation: './src/validation.js',
+    experiments: {
+        outputModule: true,
     },
+    mode: 'development',  // todo xx
+    entry: './src/predtimechart.js',
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Predtimechart - Welcome',
-            template: './src/index.html'  // Load a custom template (lodash by default)
+            template: './src/index.html',  // Load a custom template (lodash by default)
+            inject: false,  // is hard-coded in src/index.html
         }),
     ],
     output: {
-        filename: '[name].bundle.js',
+        filename: 'predtimechart.bundle.js',
         path: path.resolve(__dirname, 'dist'),
+        library: {
+            type: 'module',  // apparently experimental
+        },
         clean: true,
     },
     module: {
