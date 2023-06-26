@@ -6,6 +6,7 @@
     "ajv": "^6.12.6",
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.3",
+    "jsdom": "^22.1.0",
     "qunit": "^2.19.4",
     "style-loader": "^3.3.3",
     "webpack": "^5.87.0",
