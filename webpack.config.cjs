@@ -6,7 +6,10 @@ module.exports = {
         outputModule: true,
     },
     mode: 'development',  // todo xx
-    entry: './src/predtimechart.js',
+    entry: [ // order is crucial
+        './src/styles.js',
+        './src/predtimechart.js',
+    ],
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Predtimechart - Welcome',
