@@ -7,7 +7,7 @@ import Ajv from "ajv";
 
 const ajv = new Ajv({allErrors: true});  // draft-07
 
-// pretend schema. from: https://ajv.js.org/guide/getting-started.html
+// toy schema. from: https://ajv.js.org/guide/getting-started.html
 const schema = {
     type: "object",
     properties: {
