@@ -29,8 +29,6 @@ test/
 ```
 
 
-## files
-
 **package.json**: defines an [ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript) project
 - `"type": "module"`
 - loads: ajv, jquery, jsdom, qunit, and webpack w/its related libs
@@ -71,17 +69,18 @@ test/
 **src/validation.js**: exports `_validateOptions()`:
 - uses the [Ajv](https://ajv.js.org/) [JSON Schema](https://json-schema.org/) validation package to validate its input against a toy schema
 
-**test/validation.js**: uses Qunit to test "". crucially:
-  = uses the https://github.com/jsdom/jsdom Node.js package to make `document` global available to tests:
+**test/validation.js**: uses Qunit to test `src/validation.js`:
+- NB: since the component under test is browser-based, it requires a Node.js [HTML DOM](https://www.w3.org/TR/WD-DOM/introduction.html) implementation in the testing environment. We use the [jsdom](https://www.npmjs.com/package/jsdom) package for this, but it requires some code to make the `document` global available to the component via tests
+- similarly, the component uses [JQuery](https://jquery.com/) and so the `$` global must be available as well
+- here's the code to expose those two globals (this took some work to figure out):
+```javascript
   import {JSDOM} from "jsdom";
-  const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Title</title></head><body><div id="qunit-fixture"></div></body></html>';
-  const jsdomWindow = new JSDOM(html).window;  // needed below to initialize jquery
-  global.document = jsdomWindow.document;
-  = uses jquery Node.js package to make $ global available to tests:
   import jQueryFactory from 'jquery'; // per https://bugs.jquery.com/ticket/14549
+  const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Title</title></head><body><div id="qunit-fixture"></div></body></html>';
+  const jsdomWindow = new JSDOM(html).window;
+  global.document = jsdomWindow.document;
   global.$ = jQueryFactory(jsdomWindow);
-
-- **test/validation.js**: defines some [Qunit](https://qunitjs.com/) tests against `validation.js`
+```
 
 
 # running tests

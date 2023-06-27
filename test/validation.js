@@ -1,8 +1,8 @@
 import {JSDOM} from "jsdom";
+import jQueryFactory from 'jquery'; // per https://bugs.jquery.com/ticket/14549
 
 import _validateOptions from '../src/validation.js';
 import App from '../src/predtimechart.js';
-import jQueryFactory from 'jquery'; // per https://bugs.jquery.com/ticket/14549
 
 const {test} = QUnit;
 
@@ -12,7 +12,7 @@ const {test} = QUnit;
 //
 
 const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Title</title></head><body><div id="qunit-fixture"></div></body></html>';
-const jsdomWindow = new JSDOM(html).window;  // needed below to initialize jquery
+const jsdomWindow = new JSDOM(html).window;
 global.document = jsdomWindow.document;
 global.$ = jQueryFactory(jsdomWindow);
 
