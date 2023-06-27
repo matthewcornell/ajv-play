@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
-<div id="forecastViz_row" class="row"></div>  <!-- todo xx load bootstrap! -->
-
+<div id="forecastViz_row"></div>
 <script type="module">
     import App from './predtimechart.bundle.js';  // hard-coded from webpack.config.cjs `output.filename`
     App.initialize('forecastViz_row', {foo: 1, bar: "abc"})  // valid options

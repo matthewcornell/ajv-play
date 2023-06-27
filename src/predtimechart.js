@@ -11,8 +11,9 @@ const App = {
             throw `componentDiv DOM node not found: '${componentDiv}'`;
         }
 
-        componentDivEle.innerHTML = "hello from <span class='forecastViz_select_data'>initialize()!</span>";
-        document.body.appendChild(componentDivEle);
+        const $componentDiv = $(componentDivEle);  // drive getting jquery to work in node environment
+        $componentDiv.html(`hello from <span class='forecastViz_select_data'>initialize()!</span> <b>foo</b>=${options.foo}, <b>bar</b>=${options.bar}`);
+        $('body').append($componentDiv);
 
         console.debug('initialize(): done')
         return true;  // arbitrary return value

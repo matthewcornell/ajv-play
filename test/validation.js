@@ -2,16 +2,19 @@ import {JSDOM} from "jsdom";
 
 import _validateOptions from '../src/validation.js';
 import App from '../src/predtimechart.js';
+import jQueryFactory from 'jquery'; // per https://bugs.jquery.com/ticket/14549
 
 const {test} = QUnit;
 
 
 //
-// create `document` global and 'qunit-fixture' DIV in it
+// create `document` (with a 'qunit-fixture' DIV in it) and `$` globals
 //
 
 const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Title</title></head><body><div id="qunit-fixture"></div></body></html>';
-global.document = new JSDOM(html).window.document;
+const jsdomWindow = new JSDOM(html).window;  // needed below to initialize jquery
+global.document = jsdomWindow.document;
+global.$ = jQueryFactory(jsdomWindow);
 
 
 //
