@@ -1,4 +1,4 @@
-import validate from './schema-validator.cjs';  // Ajs standalone validation code
+import validate from './schema-validator.cjs'; // Ajs standalone validation code
 
 
 //
@@ -16,11 +16,10 @@ function _validateOptions(options) {
     // validate structure based on schema using Ajv-compiled validation function
     const valid = validate(options);
     if (!valid) {
-        if (validate.errors !== null) {
-            console.error(`_validateOptions(): invalid schema. ${validate.errors.length} error(s). options:, errors:`,
-                options, validate.errors);
-        }
-        throw `invalid options`;
+        console.error(`_validateOptions(): invalid schema. ${validate.errors.length} error(s). options:, errors:`,
+            options, validate.errors);
+        const errorStr = validate.errors.map(errorObj => JSON.stringify(errorObj)).join(', ');
+        throw `invalid options structure: ${errorStr}`;
     }
 
     // non-schema (i.e., semantic) validations would go here

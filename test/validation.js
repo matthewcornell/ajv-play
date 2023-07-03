@@ -7,31 +7,42 @@ const {test} = QUnit;
 
 
 //
-// create `document` (with a 'qunit-fixture' DIV in it), `$`, and `Plotly` globals
+// create `document` (with a 'qunit-fixture' <DIV> and a daterangepicker-related <A> in it), `$`, and `Plotly` globals
 //
 
-const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Title</title></head><body><div id="qunit-fixture"></div></body></html>';
+const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Title</title></head><body>\n' +
+    '<a data-title="Jump to As_Of"></a>\n' +
+    '<div id="qunit-fixture"></div>\n' +
+    '</body></html>';
+
+// jquery stub
 const jsdomWindow = new JSDOM(html).window;
 global.document = jsdomWindow.document;
 global.$ = jQueryFactory(jsdomWindow);
 
-
+// Plotly stub
 const PlotlyStub = {
     numCalls: 0,  // mock-style counter for below functions
     newPlot(...args) {
         this.numCalls++;
-        console.log('newPlot()', args)
+        console.log('PlotlyStub.newPlot()', args)
     },
     react() {
         this.numCalls++;
-        console.log('react()')
+        console.log('PlotlyStub.react()')
     },
     relayout() {
         this.numCalls++;
-        console.log('relayout()')
+        console.log('PlotlyStub.relayout()')
     },
 }
 global.Plotly = PlotlyStub;
+
+// daterangepicker-related stub
+const $icon = $("[data-title='Jump to As_Of']");
+$.fn.daterangepicker = function(...args) {
+    console.log('$icon.daterangepicker()', args, this)
+};
 
 
 //
@@ -49,7 +60,7 @@ test('options object invalid', assert => {
         () => {
             _validateOptions(data);
         },
-        /invalid options/,
+        /invalid options structure/,
     );
 
     // bad property type
@@ -59,7 +70,7 @@ test('options object invalid', assert => {
         () => {
             _validateOptions(data);
         },
-        /invalid options/,
+        /invalid options structure/,
     );
 
     // both problems (drives possibly reporting multiple errors)
@@ -69,7 +80,7 @@ test('options object invalid', assert => {
         () => {
             _validateOptions(data);
         },
-        /invalid options/,
+        /invalid options structure/,
     );
 });
 
