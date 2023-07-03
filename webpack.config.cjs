@@ -13,8 +13,8 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Predtimechart - Welcome',
-            template: './src/index.html',  // Load a custom template (lodash by default)
-            inject: false,  // is hard-coded in src/index.html
+            template: './src/index.html',  // load a custom template (lodash by default)
+            inject: false,                 // is hard-coded in src/index.html
         }),
     ],
     output: {

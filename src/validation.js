@@ -1,24 +1,4 @@
-import Ajv from "ajv";
-
-
-//
-// Ajv setup
-//
-
-const ajv = new Ajv({allErrors: true});  // draft-07
-
-// toy schema. from: https://ajv.js.org/guide/getting-started.html
-const schema = {
-    type: "object",
-    properties: {
-        foo: {type: "integer"},
-        bar: {type: "string"}
-    },
-    required: ["foo"],
-    additionalProperties: false
-};
-
-const validate = ajv.compile(schema);
+import validate from './schema-validator.js';  // Ajs standalone validation code
 
 
 //
@@ -35,6 +15,10 @@ const validate = ajv.compile(schema);
 function _validateOptions(options) {
     // validate against schema
     const valid = validate(options);
+    if ((!valid) && (validate.errors !== null)) {
+        console.error(`_validateOptions(): invalid schema. ${validate.errors.length} error(s). options:, errors:`,
+            options, validate.errors);
+    }
     if (!valid) {  // validate.errors
         throw `invalid options`;
     }

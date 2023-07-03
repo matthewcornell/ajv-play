@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/matthewcornell/ajv-play/blob/main/src/schema.json",
+  "title": "My schema",
+  "description": "A schema from: https://ajv.js.org/guide/getting-started.html",
+  "type": "object",
+  "properties": {
+    "foo": {
+      "type": "integer"
+    },
+    "bar": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "foo"
+  ],
+  "additionalProperties": false
+}

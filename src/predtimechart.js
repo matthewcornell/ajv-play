@@ -11,9 +11,12 @@ const App = {
             throw `componentDiv DOM node not found: '${componentDiv}'`;
         }
 
-        const $componentDiv = $(componentDivEle);  // drive getting jquery to work in node environment
+        // drive getting jquery to work in node environment:
+        const $componentDiv = $(componentDivEle);
         $componentDiv.html(`hello from <span class='forecastViz_select_data'>initialize()!</span> <b>foo</b>=${options.foo}, <b>bar</b>=${options.bar}`);
-        $('body').append($componentDiv);
+
+        // drive getting Plotly to work in node environment:
+        Plotly.newPlot(componentDivEle, [{x: [1, 2, 3, 4, 5], y: [1, 2, 4, 8, 16]}], {margin: {t: 0}});
 
         console.debug('initialize(): done')
         return true;  // arbitrary return value

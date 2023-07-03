@@ -1,6 +1,5 @@
 import {JSDOM} from "jsdom";
 import jQueryFactory from 'jquery'; // per https://bugs.jquery.com/ticket/14549
-
 import _validateOptions from '../src/validation.js';
 import App from '../src/predtimechart.js';
 
@@ -8,13 +7,27 @@ const {test} = QUnit;
 
 
 //
-// create `document` (with a 'qunit-fixture' DIV in it) and `$` globals
+// create `document` (with a 'qunit-fixture' DIV in it), `$`, and `Plotly` globals
 //
 
 const html = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Title</title></head><body><div id="qunit-fixture"></div></body></html>';
 const jsdomWindow = new JSDOM(html).window;
 global.document = jsdomWindow.document;
 global.$ = jQueryFactory(jsdomWindow);
+
+
+const PlotlyStub = {
+    newPlot(...args) {
+        console.log('newPlot()', args)
+    },
+    react() {
+        console.log('react()')
+    },
+    relayout() {
+        console.log('relayout()')
+    },
+}
+global.Plotly = PlotlyStub;
 
 
 //
@@ -38,6 +51,16 @@ test('options object invalid', assert => {
     // bad property type
     delete data.baz;
     data.foo = "not an int!";
+    assert.throws(
+        () => {
+            _validateOptions(data);
+        },
+        /invalid options/,
+    );
+
+    // both problems (drives possibly reporting multiple errors)
+    data.baz = null;           // additional property
+    data.foo = "not an int!";  // bad property type
     assert.throws(
         () => {
             _validateOptions(data);
