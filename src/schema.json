@@ -9,7 +9,8 @@
       "type": "integer"
     },
     "bar": {
-      "type": "string"
+      "type": "string",
+      "format": "date"
     }
   },
   "required": [

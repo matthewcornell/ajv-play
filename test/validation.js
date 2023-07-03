@@ -41,7 +41,7 @@ global.Plotly = PlotlyStub;
 QUnit.module('_validateOptions()');
 
 test('options object invalid', assert => {
-    const data = {foo: 1, bar: "abc"};
+    const data = {foo: 1, bar: "2022-02-22"};  // valid
 
     // additional property
     data.baz = null;
@@ -81,7 +81,7 @@ test('options object invalid', assert => {
 QUnit.module('App');
 
 test('options object valid via App', assert => {
-    const options = {foo: 1, bar: "abc"};  // valid options
+    const options = {foo: 1, bar: "2022-02-22"};  // valid options
     const actualResult = App.initialize('qunit-fixture', options);
     assert.equal(actualResult, true);
 });
@@ -94,7 +94,7 @@ test('options object valid via App', assert => {
 QUnit.module('options DIV');
 
 test('initialize() updates DOM', assert => {
-    const options = {foo: 1, bar: "abc"};  // valid options
+    const options = {foo: 1, bar: "2022-02-22"};  // valid options
     App.initialize('qunit-fixture', options);
 
     // test that Plotly function(s) were called

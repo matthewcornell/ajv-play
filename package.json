@@ -5,6 +5,7 @@
   "devDependencies": {
     "ajv": "^8.12.0",
     "ajv-cli": "^5.0.0",
+    "ajv-formats": "^2.1.1",
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.3",
     "jquery": "^3.7.0",
@@ -16,8 +17,9 @@
     "webpack-cli": "^5.1.4"
   },
   "scripts": {
-    "test": "qunit",
+    "ajv_compile": "ajv compile --all-errors -s src/schema.json -o src/schema-validator.cjs -c ajv-formats",
     "build": "webpack",
-    "generate_schema": "ajv compile --all-errors -s src/schema.json -o src/schema-validator.js"
+    "test": "qunit",
+    "webpack_stats": "webpack --stats-modules-space 999"
   }
 }

@@ -1,14 +1,17 @@
-export default validate20;
+"use strict";
+module.exports = validate20;
+module.exports.default = validate20;
 const schema22 = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "https://github.com/matthewcornell/ajv-play/blob/main/src/schema.json",
     "title": "My schema",
     "description": "A schema from: https://ajv.js.org/guide/getting-started.html",
     "type": "object",
-    "properties": {"foo": {"type": "integer"}, "bar": {"type": "string"}},
+    "properties": {"foo": {"type": "integer"}, "bar": {"type": "string", "format": "date"}},
     "required": ["foo"],
     "additionalProperties": false
 };
+const formats0 = require("ajv-formats/dist/formats").fullFormats.date;
 
 function validate20(data, {instancePath = "", parentData, parentDataProperty, rootData = data} = {}) {/*# sourceURL="https://github.com/matthewcornell/ajv-play/blob/main/src/schema.json" */
     ;let vErrors = null;
@@ -65,8 +68,25 @@ function validate20(data, {instancePath = "", parentData, parentDataProperty, ro
             }
         }
         if (data.bar !== undefined) {
-            if (typeof data.bar !== "string") {
-                const err3 = {
+            let data1 = data.bar;
+            if (typeof data1 === "string") {
+                if (!(formats0.validate(data1))) {
+                    const err3 = {
+                        instancePath: instancePath + "/bar",
+                        schemaPath: "#/properties/bar/format",
+                        keyword: "format",
+                        params: {format: "date"},
+                        message: "must match format \"" + "date" + "\""
+                    };
+                    if (vErrors === null) {
+                        vErrors = [err3];
+                    } else {
+                        vErrors.push(err3);
+                    }
+                    errors++;
+                }
+            } else {
+                const err4 = {
                     instancePath: instancePath + "/bar",
                     schemaPath: "#/properties/bar/type",
                     keyword: "type",
@@ -74,15 +94,15 @@ function validate20(data, {instancePath = "", parentData, parentDataProperty, ro
                     message: "must be string"
                 };
                 if (vErrors === null) {
-                    vErrors = [err3];
+                    vErrors = [err4];
                 } else {
-                    vErrors.push(err3);
+                    vErrors.push(err4);
                 }
                 errors++;
             }
         }
     } else {
-        const err4 = {
+        const err5 = {
             instancePath,
             schemaPath: "#/type",
             keyword: "type",
@@ -90,9 +110,9 @@ function validate20(data, {instancePath = "", parentData, parentDataProperty, ro
             message: "must be object"
         };
         if (vErrors === null) {
-            vErrors = [err4];
+            vErrors = [err5];
         } else {
-            vErrors.push(err4);
+            vErrors.push(err5);
         }
         errors++;
     }
