@@ -17,13 +17,17 @@ global.$ = jQueryFactory(jsdomWindow);
 
 
 const PlotlyStub = {
+    numCalls: 0,  // mock-style counter for below functions
     newPlot(...args) {
+        this.numCalls++;
         console.log('newPlot()', args)
     },
     react() {
+        this.numCalls++;
         console.log('react()')
     },
     relayout() {
+        this.numCalls++;
         console.log('relayout()')
     },
 }
@@ -93,7 +97,6 @@ test('initialize() updates DOM', assert => {
     const options = {foo: 1, bar: "abc"};  // valid options
     App.initialize('qunit-fixture', options);
 
-    // test that content was added to the componentDiv
-    const innerHTML = document.getElementById('qunit-fixture').innerHTML;
-    assert.true(innerHTML !== '');
+    // test that Plotly function(s) were called
+    assert.true(PlotlyStub.numCalls > 0);
 });

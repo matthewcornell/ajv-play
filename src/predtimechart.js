@@ -13,8 +13,9 @@ const App = {
 
         // drive getting jquery to work in node environment:
         const $componentDiv = $(componentDivEle);
-        $componentDiv.html(`hello from <span class='forecastViz_select_data'>initialize()!</span> <b>foo</b>=${options.foo}, <b>bar</b>=${options.bar}`);
-
+        const html = `hello from <span class='forecastViz_select_data'>initialize()!</span> <b>foo</b>=${options.foo}, <b>bar</b>=${options.bar}`;
+        $componentDiv.before(`<div>${html}</div>`);
+        
         // drive getting Plotly to work in node environment:
         Plotly.newPlot(componentDivEle, [{x: [1, 2, 3, 4, 5], y: [1, 2, 4, 8, 16]}], {margin: {t: 0}});
 

@@ -17,6 +17,7 @@
   },
   "scripts": {
     "test": "qunit",
-    "build": "webpack"
+    "build": "webpack",
+    "generate_schema": "ajv compile --all-errors -s src/schema.json -o src/schema-validator.js"
   }
 }
