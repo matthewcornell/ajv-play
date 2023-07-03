@@ -15,11 +15,11 @@ import validate from './schema-validator.js';  // Ajs standalone validation code
 function _validateOptions(options) {
     // validate against schema
     const valid = validate(options);
-    if ((!valid) && (validate.errors !== null)) {
-        console.error(`_validateOptions(): invalid schema. ${validate.errors.length} error(s). options:, errors:`,
-            options, validate.errors);
-    }
-    if (!valid) {  // validate.errors
+    if (!valid) {
+        if (validate.errors !== null) {
+            console.error(`_validateOptions(): invalid schema. ${validate.errors.length} error(s). options:, errors:`,
+                options, validate.errors);
+        }
         throw `invalid options`;
     }
 }
